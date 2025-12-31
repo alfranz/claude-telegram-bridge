@@ -37,6 +37,58 @@ if (OPENAI_API_KEY && OPENAI_API_KEY !== 'sua_api_key_aqui') {
 // Map de sessões: chatId -> { process, sessionId, buffer }
 const sessions = new Map();
 
+// Cache de comandos customizados do Claude Code
+let customCommands = new Map(); // commandName -> { name, description, filePath }
+
+// ============================
+// DESCOBRIR COMANDOS CUSTOMIZADOS
+// ============================
+
+function discoverCustomCommands() {
+  const commandsDir = path.join(WORKING_DIR, '.claude', 'commands');
+  const commands = new Map();
+
+  if (!fs.existsSync(commandsDir)) {
+    console.log('📋 No .claude/commands directory found - custom commands disabled');
+    return commands;
+  }
+
+  try {
+    const files = fs.readdirSync(commandsDir);
+
+    for (const file of files) {
+      if (!file.endsWith('.md')) continue;
+
+      const commandName = file.replace('.md', '');
+      const filePath = path.join(commandsDir, file);
+
+      // Ler o arquivo para extrair descrição (primeira linha não vazia)
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const lines = content.split('\n').filter(line => line.trim());
+      const description = lines[0]?.replace(/^#+\s*/, '').trim() || 'No description';
+
+      commands.set(commandName, {
+        name: commandName,
+        description: description.substring(0, 100), // Limitar tamanho
+        filePath: filePath
+      });
+
+      console.log(`  ├─ /${commandName}: ${description.substring(0, 50)}...`);
+    }
+
+    if (commands.size > 0) {
+      console.log(`✅ Discovered ${commands.size} custom Claude Code command(s)`);
+    } else {
+      console.log('📋 No custom commands found in .claude/commands/');
+    }
+
+  } catch (error) {
+    console.error('⚠️ Error discovering custom commands:', error.message);
+  }
+
+  return commands;
+}
+
 // ============================
 // UTILITÁRIOS
 // ============================
@@ -657,8 +709,26 @@ bot.on('message', async (msg) => {
 
   if (text === '/help') {
     const whisperStatus = openai ? ' (✅ active)' : ' (⚠️ configure OPENAI_API_KEY)';
+    let helpText = t(chatId, 'commands.help', { whisperStatus });
+
+    // Add custom commands section if any exist
+    if (customCommands.size > 0) {
+      helpText += '\n\n*📋 Custom Claude Code Commands:*\n';
+      for (const [name, cmd] of customCommands) {
+        helpText += `\`/${name}\` - ${cmd.description}\n`;
+      }
+      helpText += '\n_Custom commands are forwarded directly to Claude Code_';
+    }
+
+    await bot.sendMessage(chatId, helpText, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (text === '/reload') {
+    console.log(`🔄 [${chatId}] Reloading custom commands...`);
+    customCommands = discoverCustomCommands();
     await bot.sendMessage(chatId,
-      t(chatId, 'commands.help', { whisperStatus }),
+      `🔄 *Commands reloaded!*\n\nFound ${customCommands.size} custom command(s).\nUse /help to see available commands.`,
       { parse_mode: 'Markdown' }
     );
     return;
@@ -689,6 +759,38 @@ bot.on('message', async (msg) => {
       await bot.sendMessage(chatId, t(chatId, 'language.invalidLanguage'));
     }
     return;
+  }
+
+  // ============================
+  // CUSTOM CLAUDE CODE COMMANDS
+  // ============================
+  if (text && text.startsWith('/')) {
+    const commandMatch = text.match(/^\/([a-zA-Z0-9_-]+)(\s+(.*))?$/);
+
+    if (commandMatch) {
+      const commandName = commandMatch[1];
+      const commandArgs = commandMatch[3] || '';
+
+      // Check if it's a custom Claude Code command
+      if (customCommands.has(commandName)) {
+        const session = sessions.get(chatId);
+
+        if (!session || !session.active) {
+          await bot.sendMessage(chatId, t(chatId, 'errors.noSession'));
+          return;
+        }
+
+        const command = customCommands.get(commandName);
+        console.log(`🎯 [${chatId}] Executing custom command: /${commandName}${commandArgs ? ' ' + commandArgs : ''}`);
+
+        // Send the slash command to Claude Code
+        const fullCommand = `/${commandName}${commandArgs ? ' ' + commandArgs : ''}`;
+        sendToClaudeSession(chatId, fullCommand);
+
+        await bot.sendMessage(chatId, `🎯 Executing: \`/${commandName}\`\n${command.description}`, { parse_mode: 'Markdown' });
+        return;
+      }
+    }
   }
 
   // ============================
@@ -734,4 +836,9 @@ if (AUTHORIZED_CHAT_IDS.length > 0) {
 } else {
   console.log(`🔐 Authorization: Disabled (any chat can use)`);
 }
+
+// Discover custom Claude Code commands
+console.log('📋 Discovering custom Claude Code commands...');
+customCommands = discoverCustomCommands();
+
 console.log('✅ Bot started - Waiting for commands...\n');
