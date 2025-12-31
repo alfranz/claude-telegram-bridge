@@ -1,10 +1,6 @@
-[🇬🇧 English](./README.en.md) | [🇧🇷 Português](./README.md) | [🇳🇱 Nederlands](./README.nl.md)
-
----
-
 # 🤖 Telegram Claude Code Bot
 
-Controle completo do Claude Code via Telegram com suporte a **texto**, **imagens** (visão) e **áudio** (transcrição automática)!
+Complete control of Claude Code via Telegram with support for **text**, **images** (vision), and **audio** (automatic transcription)!
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-18+-green.svg" alt="Node.js">
@@ -13,128 +9,128 @@ Controle completo do Claude Code via Telegram com suporte a **texto**, **imagens
   <img src="https://img.shields.io/badge/OpenAI-Whisper-orange.svg" alt="Whisper">
 </p>
 
-## ✨ Funcionalidades
+## ✨ Features
 
-### 💬 **Interação Completa**
-- 🔄 **Streaming em tempo real** - Veja Claude pensando e respondendo
-- 🧠 **Contexto persistente** - Sessões mantêm histórico completo
-- ⚡ **Mensagens parciais** - Atualizações progressivas conforme Claude processa
-- 🛠️ **Notificações de ferramentas** - Veja quando Claude executa comandos
+### 💬 **Complete Interaction**
+- 🔄 **Real-time streaming** - Watch Claude thinking and responding
+- 🧠 **Persistent context** - Sessions maintain complete history
+- ⚡ **Partial messages** - Progressive updates as Claude processes
+- 🛠️ **Tool notifications** - See when Claude executes commands
 
-### 📸 **Suporte Multimídia**
-- 🖼️ **Análise de imagens** - Envie fotos e Claude analisa com visão
-- 🎤 **Transcrição de áudio** - Envie mensagens de voz, transcritas automaticamente via Whisper
-- 📁 **Arquivos locais** - Claude pode ler/escrever no diretório de trabalho
+### 📸 **Multimedia Support**
+- 🖼️ **Image analysis** - Send photos and Claude analyzes with vision
+- 🎤 **Audio transcription** - Send voice messages, automatically transcribed via Whisper
+- 📁 **Local files** - Claude can read/write in the working directory
 
-### 🌍 **Suporte Multilíngue**
-- 🇬🇧 **Inglês** - Idioma padrão
-- 🇧🇷 **Português** - Suporte completo
-- 🇳🇱 **Holandês** - Suporte completo
-- 🔄 **Troca de idioma** - Use `/lang` para mudar entre idiomas
-- 🎙️ **Transcrição em qualquer idioma** - Whisper detecta automaticamente o idioma selecionado
+### 🌍 **Multilingual Support**
+- 🇬🇧 **English** - Default language
+- 🇧🇷 **Portuguese** - Full support
+- 🇳🇱 **Dutch** - Full support
+- 🔄 **Language switching** - Use `/lang` to switch between languages
+- 🎙️ **Transcription in any language** - Whisper automatically detects the selected language
 
-### 🔒 **Segurança**
-- 🔐 **Autenticação por Chat ID** - Apenas você pode usar o bot
-- ✅ **Aprovação de permissões** - Controle total sobre ações do Claude
-- 🚫 **Auto-skip opcional** - Modo `--dangerously-skip-permissions`
+### 🔒 **Security**
+- 🔐 **Chat ID authentication** - Only you can use the bot
+- ✅ **Permission approval** - Complete control over Claude's actions
+- 🚫 **Optional auto-skip** - `--dangerously-skip-permissions` mode
 
-### 👥 **Suporte a Grupos**
-- 🗣️ **Sessão compartilhada** - Use Claude Code em grupos do Telegram
-- 👥 **Colaboração** - Todos os membros podem interagir com Claude
-- 📝 **Histórico único** - Uma conversa compartilhada por grupo
-- 📖 **[Ver guia completo](GROUPS.pt.md)** - Instruções detalhadas de configuração
+### 👥 **Group Support**
+- 🗣️ **Shared session** - Use Claude Code in Telegram groups
+- 👥 **Collaboration** - All members can interact with Claude
+- 📝 **Single history** - One shared conversation per group
+- 📖 **[View complete guide](GROUPS.en.md)** - Detailed setup instructions
 
 ---
 
-## 🚀 Instalação
+## 🚀 Installation
 
-### 1️⃣ Pré-requisitos
+### 1️⃣ Prerequisites
 
-- **Node.js 18+** ([Baixar](https://nodejs.org))
-- **Claude Code CLI** instalado e configurado ([Docs](https://docs.claude.com/en/docs/claude-code))
-- **Conta Telegram**
+- **Node.js 18+** ([Download](https://nodejs.org))
+- **Claude Code CLI** installed and configured ([Docs](https://docs.claude.com/en/docs/claude-code))
+- **Telegram account**
 
-### 2️⃣ Clone e Instale
+### 2️⃣ Clone and Install
 
 ```bash
-git clone https://github.com/seu-usuario/telegram-claude-bot.git
+git clone https://github.com/your-username/telegram-claude-bot.git
 cd telegram-claude-bot
 npm install
 ```
 
-### 3️⃣ Configure o `.env`
+### 3️⃣ Configure `.env`
 
-Crie um arquivo `.env` na raiz do projeto:
+Create a `.env` file in the project root:
 
 ```env
 # ============================================
-# OBRIGATÓRIO
+# REQUIRED
 # ============================================
 
-# Token do bot do Telegram (obtenha com @BotFather)
-TELEGRAM_BOT_TOKEN=seu_token_aqui
+# Telegram bot token (obtain from @BotFather)
+TELEGRAM_BOT_TOKEN=your_token_here
 
 # ============================================
-# RECOMENDADO
+# RECOMMENDED
 # ============================================
 
-# ID do chat autorizado (seu Chat ID do Telegram)
-# Pode ser um único ID ou múltiplos (chat privado + grupos) separados por vírgula
-# Exemplo: AUTHORIZED_CHAT_ID=123456789,-987654321
-AUTHORIZED_CHAT_ID=seu_chat_id_aqui
+# Authorized chat ID (your Telegram Chat ID)
+# Can be a single ID or multiple (private chat + groups) separated by comma
+# Example: AUTHORIZED_CHAT_ID=123456789,-987654321
+AUTHORIZED_CHAT_ID=your_chat_id_here
 
-# Diretório de trabalho do Claude Code
-WORKING_DIR=C:\seu\projeto
+# Claude Code working directory
+WORKING_DIR=C:\your\project
 
-# Caminho para o executável do Claude Code
+# Path to Claude Code executable
 CLAUDE_CODE_PATH=claude
 
 # ============================================
-# OPCIONAL - Transcrição de áudio
+# OPTIONAL - Audio transcription
 # ============================================
 
-# API Key do OpenAI (para Whisper - transcrição de áudio)
-OPENAI_API_KEY=sk-proj-...sua_key_aqui...
+# OpenAI API Key (for Whisper - audio transcription)
+OPENAI_API_KEY=sk-proj-...your_key_here...
 
 # ============================================
-# OPCIONAL - Idioma / Language
+# OPTIONAL - Language
 # ============================================
 
-# Idioma padrão para novos usuários
-# Default language for new users (en, pt, ou nl)
+# Default language for new users
+# Default language for new users (en, pt, or nl)
 DEFAULT_LANGUAGE=en
 ```
 
-#### 🔑 Como obter o **Token do Bot**:
+#### 🔑 How to get the **Bot Token**:
 
-1. Abra [@BotFather](https://t.me/botfather) no Telegram
-2. Envie `/newbot`
-3. Escolha um nome e username para seu bot
-4. Copie o token fornecido
+1. Open [@BotFather](https://t.me/botfather) on Telegram
+2. Send `/newbot`
+3. Choose a name and username for your bot
+4. Copy the provided token
 
-#### 🆔 Como obter seu **Chat ID**:
+#### 🆔 How to get your **Chat ID**:
 
-1. Inicie o bot **sem** configurar `AUTHORIZED_CHAT_ID`
-2. Envie `/start` para o bot
-3. Veja no console do servidor: `📱 Seu Chat ID: 123456789`
-4. Adicione ao `.env`
+1. Start the bot **without** configuring `AUTHORIZED_CHAT_ID`
+2. Send `/start` to the bot
+3. Check the server console: `📱 Your Chat ID: 123456789`
+4. Add it to `.env`
 
-#### 🎙️ Como obter **OpenAI API Key** (opcional):
+#### 🎙️ How to get **OpenAI API Key** (optional):
 
-1. Acesse [platform.openai.com](https://platform.openai.com)
-2. Crie uma conta e vá em **API Keys**
-3. Gere uma nova chave
-4. Adicione ao `.env`
+1. Visit [platform.openai.com](https://platform.openai.com)
+2. Create an account and go to **API Keys**
+3. Generate a new key
+4. Add it to `.env`
 
-> **⚠️ IMPORTANTE:** Nunca commite o arquivo `.env`! Ele contém informações sensíveis.
+> **⚠️ IMPORTANT:** Never commit the `.env` file! It contains sensitive information.
 
-### 4️⃣ Execute
+### 4️⃣ Run
 
 ```bash
 npm start
 ```
 
-ou para desenvolvimento com auto-reload:
+or for development with auto-reload:
 
 ```bash
 npm run dev
@@ -142,117 +138,113 @@ npm run dev
 
 ---
 
-## 📱 Como Usar
+## 📱 How to Use
 
-### Comandos Disponíveis
+### Available Commands
 
-| Comando | Descrição |
+| Command | Description |
 |---------|-----------|
-| `/start` | Inicia uma nova sessão Claude Code |
-| `/stop` | Encerra a sessão atual |
-| `/status` | Mostra status da sessão (PID, Session ID, etc.) |
-| `/help` | Exibe ajuda e funcionalidades |
-| `/lang` | Muda o idioma da interface (en, pt, nl) |
-| `/lang en` | Muda para Inglês |
-| `/lang pt` | Muda para Português |
-| `/lang nl` | Muda para Holandês |
+| `/start` | Start a new Claude Code session |
+| `/stop` | End the current session |
+| `/status` | Show session status (PID, Session ID, etc.) |
+| `/help` | Display help and features |
+| `/lang` | Change interface language (en, pt, nl) |
+| `/lang en` | Switch to English |
+| `/lang pt` | Switch to Portuguese |
+| `/lang nl` | Switch to Dutch |
 
-### 🌐 Seleção de Idioma
+### 🌐 Language Selection
 
-O bot suporta **3 idiomas** para toda a interface e mensagens:
+The bot supports **3 languages** for the entire interface and messages:
 
-**Idioma Padrão**: Inglês (English)
+**Default Language**: English
 
-Para **mudar de idioma**, use o comando `/lang`:
+To **change language**, use the `/lang` command:
 
 ```
-/lang              # Mostra idioma atual e opções disponíveis
-/lang en           # Muda para Inglês (English) 🇬🇧
-/lang pt           # Muda para Português 🇧🇷
-/lang nl           # Muda para Holandês (Nederlands) 🇳🇱
+/lang              # Show current language and available options
+/lang en           # Switch to English 🇬🇧
+/lang pt           # Switch to Portuguese 🇧🇷
+/lang nl           # Switch to Dutch (Nederlands) 🇳🇱
 ```
 
-A escolha é imediata e confirmada na tela. Todas as mensagens do bot serão exibidas no idioma selecionado, incluindo:
-- Mensagens de status
-- Mensagens de erro
-- Feedback de processamento
-- Transcrição de áudio (no idioma selecionado)
+The change is immediate and confirmed on screen. All bot messages will be displayed in the selected language, including:
+- Status messages
+- Error messages
+- Processing feedback
+- Audio transcription (in the selected language)
 
-**Persistência / Persistence / Persistentie:**
-- Suas preferências de idioma são salvas automaticamente
+**Persistence:**
 - Your language preferences are saved automatically
-- Je taalvoorkeuren worden automatisch opgeslagen
-- Armazenadas em `data/language-preferences.json`
 - Stored in `data/language-preferences.json`
-- Opgeslagen in `data/language-preferences.json`
 
-### 💬 Interação por Texto
+### 💬 Text Interaction
 
-Simplesmente digite sua mensagem normalmente:
+Simply type your message normally:
 
 ```
-Você: Liste os arquivos do diretório atual
+You: List the files in the current directory
 
-Claude: 🤖 Vou usar o comando Bash para listar...
+Claude: 🤖 I'll use the Bash command to list...
         [streaming...]
-        📁 Arquivos encontrados:
+        📁 Files found:
         - index.js
         - package.json
         - README.md
 ```
 
-### 📸 Envio de Imagens
+### 📸 Sending Images
 
-Envie uma foto diretamente no chat:
-
-```
-[Você envia uma screenshot de código]
-
-Claude: 🤖 Vejo um código JavaScript que...
-        - Define uma função assíncrona
-        - Usa fetch para fazer requisições
-        - Tem um try/catch para tratamento de erros
-
-        Quer que eu sugira melhorias?
-```
-
-### 🎤 Mensagens de Voz
-
-Grave e envie um áudio:
+Send a photo directly in the chat:
 
 ```
-[Você envia áudio: "Claude, crie um servidor Express básico"]
+[You send a code screenshot]
 
-Bot: 🎤 Áudio transcrito:
-     "Claude, crie um servidor Express básico"
+Claude: 🤖 I see JavaScript code that...
+        - Defines an async function
+        - Uses fetch to make requests
+        - Has a try/catch for error handling
 
-Claude: 🤖 Vou criar um servidor Express...
-        [cria o código]
+        Would you like me to suggest improvements?
 ```
 
-### ✅ Aprovação de Permissões
+### 🎤 Voice Messages
 
-Quando Claude precisa de permissão, você recebe botões:
+Record and send audio:
 
 ```
-Claude: 🔐 PERMISSÃO NECESSÁRIA:
+[You send audio: "Claude, create a basic Express server"]
+
+Bot: 🎤 Audio transcribed:
+     "Claude, create a basic Express server"
+
+Claude: 🤖 I'll create an Express server...
+        [creates the code]
+```
+
+### ✅ Permission Approval
+
+When Claude needs permission, you receive buttons:
+
+```
+Claude: 🔐 PERMISSION REQUIRED:
         Allow Claude to write file server.js?
 
-        [✅ Permitir (Y)] [❌ Negar (N)]
+        [✅ Allow (Y)] [❌ Deny (N)]
 ```
 
-Clique para aprovar ou negar.
+Click to approve or deny.
 
 ---
 
-## 🔧 Como Funciona
+## 🔧 How It Works
 
-### Arquitetura
+### Architecture
 
 ```
 ┌─────────────┐      ┌──────────────┐      ┌─────────────────┐
 │  Telegram   │─────▶│  Node.js Bot │─────▶│  Claude Code    │
-│   Usuário   │◀─────│   (index.js) │◀─────│  (stream-json)  │
+│    User     │◀─────│   (index.js) │◀─────│  (stream-json)  │
 └─────────────┘      └──────────────┘      └─────────────────┘
                             │
                             ▼
@@ -262,34 +254,34 @@ Clique para aprovar ou negar.
                      └──────────────┘
 ```
 
-### Fluxo de Streaming
+### Streaming Flow
 
-1. **Spawn Process** - Inicia `claude` com modo `--print --output-format stream-json`
-2. **Session ID** - UUID gerado para manter contexto entre mensagens
-3. **Stream Events** - Captura eventos JSON em tempo real:
-   - `message_start` - Claude começou a responder
-   - `content_block_delta` - Texto parcial chegando
-   - `message_stop` - Resposta completa
-   - `tool_use` - Claude executando ferramenta
-4. **Debounce** - Agrupa texto em chunks para enviar ao Telegram
-5. **Bidirectional** - Suas respostas vão direto para o stdin do Claude
+1. **Spawn Process** - Starts `claude` with `--print --output-format stream-json` mode
+2. **Session ID** - Generated UUID to maintain context between messages
+3. **Stream Events** - Captures JSON events in real-time:
+   - `message_start` - Claude started responding
+   - `content_block_delta` - Partial text arriving
+   - `message_stop` - Complete response
+   - `tool_use` - Claude executing tool
+4. **Debounce** - Groups text in chunks to send to Telegram
+5. **Bidirectional** - Your responses go directly to Claude's stdin
 
-### Formato de Mensagens (Stream JSON)
+### Message Format (Stream JSON)
 
-**Input (você → Claude):**
+**Input (you → Claude):**
 ```json
 {
   "type": "user",
   "message": {
     "role": "user",
-    "content": "Sua mensagem aqui"
+    "content": "Your message here"
   },
-  "session_id": "uuid-da-sessão",
+  "session_id": "session-uuid",
   "parent_tool_use_id": null
 }
 ```
 
-**Output (Claude → você):**
+**Output (Claude → you):**
 ```json
 {
   "type": "stream_event",
@@ -297,7 +289,7 @@ Clique para aprovar ou negar.
     "type": "content_block_delta",
     "delta": {
       "type": "text_delta",
-      "text": "Texto parcial..."
+      "text": "Partial text..."
     }
   }
 }
@@ -305,25 +297,25 @@ Clique para aprovar ou negar.
 
 ---
 
-## 🛡️ Segurança e Boas Práticas
+## 🛡️ Security and Best Practices
 
-### ✅ Recomendações
+### ✅ Recommendations
 
-- **Use `AUTHORIZED_CHAT_ID`** - Proteja seu bot de acessos não autorizados
-- **Nunca commite `.env`** - Suas credenciais devem ficar locais
-- **Revise permissões** - Aprove apenas ações que você confia
-- **Monitore uso** - Acompanhe os logs do console
+- **Use `AUTHORIZED_CHAT_ID`** - Protect your bot from unauthorized access
+- **Never commit `.env`** - Your credentials should remain local
+- **Review permissions** - Only approve actions you trust
+- **Monitor usage** - Keep an eye on console logs
 
-### ⚠️ Avisos Importantes
+### ⚠️ Important Warnings
 
-- O bot executa comandos no **seu sistema local**
-- Claude pode **ler/escrever arquivos** no `WORKING_DIR`
-- Transcrições de áudio são enviadas para a **API do OpenAI**
-- Imagens são enviadas para a **API da Anthropic**
+- The bot executes commands on **your local system**
+- Claude can **read/write files** in the `WORKING_DIR`
+- Audio transcriptions are sent to **OpenAI's API**
+- Images are sent to **Anthropic's API**
 
 ### 🔒 `.gitignore`
 
-O arquivo `.gitignore` já está configurado para proteger:
+The `.gitignore` file is already configured to protect:
 ```
 node_modules/
 temp/
@@ -335,109 +327,109 @@ temp/
 
 ## 🐛 Troubleshooting
 
-### Bot não responde
+### Bot doesn't respond
 
-**Possíveis causas:**
-- Token do Telegram incorreto
-- Claude Code não está instalado
-- Firewall bloqueando conexões
+**Possible causes:**
+- Incorrect Telegram token
+- Claude Code is not installed
+- Firewall blocking connections
 
-**Solução:**
+**Solution:**
 ```bash
-# Verifique se Claude Code está instalado
+# Check if Claude Code is installed
 claude --version
 
-# Teste manualmente
-claude --print --output-format text "Olá"
+# Test manually
+claude --print --output-format text "Hello"
 
-# Veja os logs do console
+# Check console logs
 ```
 
-### "Acesso não autorizado"
+### "Unauthorized access"
 
-**Causa:** Seu Chat ID não está no `.env`
+**Cause:** Your Chat ID is not in `.env`
 
-**Solução:**
-1. Remova `AUTHORIZED_CHAT_ID` temporariamente
-2. Envie `/start` no bot
-3. Veja seu Chat ID no console
-4. Adicione ao `.env`
+**Solution:**
+1. Temporarily remove `AUTHORIZED_CHAT_ID`
+2. Send `/start` to the bot
+3. Check your Chat ID in the console
+4. Add it to `.env`
 
-### Áudio não transcreve
+### Audio doesn't transcribe
 
-**Causa:** `OPENAI_API_KEY` não configurada
+**Cause:** `OPENAI_API_KEY` not configured
 
-**Solução:**
-- Configure a chave da OpenAI no `.env`
-- Reinicie o bot
-- O bot mostrará: `✅ OpenAI Whisper habilitado`
+**Solution:**
+- Configure OpenAI key in `.env`
+- Restart the bot
+- The bot will show: `✅ OpenAI Whisper enabled`
 
-### Imagens não funcionam
+### Images don't work
 
-**Possíveis causas:**
-- Arquivo muito grande (>10MB)
-- Formato não suportado
+**Possible causes:**
+- File too large (>10MB)
+- Unsupported format
 
-**Formatos suportados:**
+**Supported formats:**
 - `.jpg` / `.jpeg`
 - `.png`
 - `.gif`
 - `.webp`
 
-### Claude não mantém contexto
+### Claude doesn't maintain context
 
-**Solução:**
+**Solution:**
 ```bash
-# No Telegram:
+# In Telegram:
 /stop
 /start
 
-# O Session ID muda, resetando o contexto
+# The Session ID changes, resetting the context
 ```
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
 ```
 telegram-claude-bot/
-├── index.js              # Código principal do bot
-├── package.json          # Dependências Node.js
-├── .env                  # Configurações (criar manualmente)
-├── .gitignore            # Arquivos ignorados pelo Git
-├── README.md             # Esta documentação
-└── temp/                 # Áudios temporários (auto-criado)
+├── index.js              # Main bot code
+├── package.json          # Node.js dependencies
+├── .env                  # Configuration (create manually)
+├── .gitignore            # Files ignored by Git
+├── README.md             # This documentation
+└── temp/                 # Temporary audio files (auto-created)
 ```
 
 ---
 
-## 🔄 Atualizações e Contribuições
+## 🔄 Updates and Contributions
 
 ### Roadmap
 
-- [ ] Suporte a documentos (PDF, DOCX)
-- [ ] Suporte a múltiplas sessões simultâneas
-- [ ] Interface web de gerenciamento
-- [ ] Comandos personalizados
-- [ ] Logs persistentes
+- [ ] Document support (PDF, DOCX)
+- [ ] Multiple simultaneous sessions support
+- [ ] Web management interface
+- [ ] Custom commands
+- [ ] Persistent logs
 
-### Como Contribuir
+### How to Contribute
 
-1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona funcionalidade X'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
----
-
-## 📄 Licença
-
-MIT License - veja [LICENSE](LICENSE) para detalhes.
+1. Fork the project
+2. Create a branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add feature X'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
 ---
 
-## 🙏 Créditos
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Credits
 
 - **Claude Code** - [Anthropic](https://www.anthropic.com)
 - **Telegram Bot API** - [Telegram](https://core.telegram.org/bots)
@@ -447,35 +439,35 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ## 💡 FAQ
 
-### Quanto custa usar?
+### How much does it cost to use?
 
-- **Telegram Bot**: Grátis
-- **Claude Code**: Requer assinatura Claude Pro
-- **OpenAI Whisper**: ~$0.006 por minuto de áudio
+- **Telegram Bot**: Free
+- **Claude Code**: Requires Claude Pro subscription
+- **OpenAI Whisper**: ~$0.006 per minute of audio
 
-### Posso usar em produção?
+### Can I use it in production?
 
-Sim, mas adicione:
+Yes, but add:
 - Rate limiting
-- Logs estruturados
+- Structured logs
 - Health checks
-- Deploy em servidor (não localhost)
+- Deploy on a server (not localhost)
 
-### Funciona em que sistemas?
+### What systems does it work on?
 
 - ✅ Windows 10/11
-- ✅ macOS (Intel e Apple Silicon)
+- ✅ macOS (Intel and Apple Silicon)
 - ✅ Linux (Ubuntu, Debian, etc.)
 
-### Preciso deixar o PC ligado?
+### Do I need to keep my PC on?
 
-Sim, o bot roda localmente. Para rodar 24/7:
-- Use um VPS (AWS, DigitalOcean, etc.)
-- Configure PM2 para auto-restart
-- Use systemd no Linux
+Yes, the bot runs locally. To run 24/7:
+- Use a VPS (AWS, DigitalOcean, etc.)
+- Configure PM2 for auto-restart
+- Use systemd on Linux
 
 ---
 
 <p align="center">
-  Feito com ❤️ usando Claude Code
+  Made with ❤️ using Claude Code
 </p>
