@@ -148,10 +148,33 @@ npm run dev
 | `/stop` | End the current session |
 | `/status` | Show session status (PID, Session ID, etc.) |
 | `/help` | Display help and features |
+| `/reload` | Reload custom Claude Code commands |
 | `/lang` | Change interface language (en, pt, nl) |
 | `/lang en` | Switch to English |
 | `/lang pt` | Switch to Portuguese |
 | `/lang nl` | Switch to Dutch |
+
+### 🎯 Custom Claude Code Commands
+
+**The bot automatically discovers and mirrors your Claude Code custom commands!**
+
+Any slash commands you've defined in your working directory's `.claude/commands/` folder will be available in Telegram:
+
+1. **Automatic Discovery**: On startup, the bot scans `WORKING_DIR/.claude/commands/` for `.md` files
+2. **Direct Forwarding**: When you type a custom command in Telegram (e.g., `/review`), it's sent directly to Claude Code
+3. **Listed in Help**: Custom commands appear in `/help` with their descriptions
+4. **Hot Reload**: Use `/reload` to refresh the command list without restarting the bot
+
+**Example:**
+```
+# If you have: /your/project/.claude/commands/review.md
+# In Telegram, you can use: /review
+
+You: /review
+Bot: 🎯 Executing: /review
+     Review the code for issues and improvements
+Claude: [performs code review as defined in review.md]
+```
 
 ### 🌐 Language Selection
 
